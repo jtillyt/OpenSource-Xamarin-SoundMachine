@@ -11,7 +11,8 @@
         <CollectionView.ItemTemplate>
             <DataTemplate x:DataType="vms:SoundPlayerViewModelBase">
                 <StackLayout Padding="20">
-                    <Frame BorderColor="Black"
+                    <Frame BackgroundColor="White"
+                           BorderColor="Black"
                            CornerRadius="5"
                            Margin="5">
                         <Grid RowDefinitions="50,50">
