@@ -34,10 +34,10 @@ namespace SoundMachine.ViewModels
                        .Subscribe();
 
             StopCommand.ObserveOn(RxApp.MainThreadScheduler)
-                       .Do(_=>IsPlaying = false)
+                       .Do(_ => IsPlaying = false)
                        .Subscribe();
 
-            this.WhenAnyValue(x => x.Duration, x => x.IsPlaying, x=>x.IsLooped,
+            this.WhenAnyValue(x => x.Duration, x => x.IsPlaying, x => x.IsLooped,
                             (duration, isPlaying, isLooped) => (duration, isPlaying, isLooped))
                 .Where(x => x.duration > 0 && x.isPlaying && !x.isLooped)
                 .Select(x => Observable.Timer(TimeSpan.FromSeconds(x.duration)))
@@ -79,7 +79,6 @@ namespace SoundMachine.ViewModels
             set => this.RaiseAndSetIfChanged(ref _isLooped, value);
         }
 
-        private ObservableAsPropertyHelper<bool> _isLoopedEnabled;
         public bool IsLoopedEnabled => _isLoopedEnabled.Value;
 
         public abstract Stream GetAudioStream();
@@ -109,10 +108,15 @@ namespace SoundMachine.ViewModels
             _soundPlayer.Loop = IsLooped;
             _soundPlayer.Play();
 
-            Device.BeginInvokeOnMainThread(() =>
+            if (Duration == 0)
             {
-                Duration = _soundPlayer.Duration == 0 ? 1 : _soundPlayer.Duration;//Some sounds are less than one second and will be rounded down to zero on some platforms. We don't want that.
-            });
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    Duration = _soundPlayer.Duration == 0 ? 1 : _soundPlayer.Duration;//Some sounds are less than one second and will be rounded down to zero on some platforms. We don't want that.
+                });
+            }
         }
+
+        private ObservableAsPropertyHelper<bool> _isLoopedEnabled;
     }
 }
