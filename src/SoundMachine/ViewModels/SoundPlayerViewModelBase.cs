@@ -85,13 +85,13 @@ namespace SoundMachine.ViewModels
 
         protected void EnsurePlayerLoaded()
         {
-            if (_soundPlayer == null)
-            {
+            //if (_soundPlayer == null)
+            //{
                 _soundPlayer = CrossSimpleAudioPlayer.CreateSimpleAudioPlayer();
 
                 var stream = GetAudioStream();
                 _soundPlayer.Load(stream);
-            }
+            //}
         }
         protected CompositeDisposable Disposables { get; } = new CompositeDisposable();
 

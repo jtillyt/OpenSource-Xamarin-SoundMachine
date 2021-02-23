@@ -58,21 +58,20 @@ namespace SoundMachine.Wave
 {
     public class WaveMemoryStream
     {
-        readonly WaveHeader header;
-        readonly WavefmtSubChunk fmt;
-        WavedataSubChunk data;
+        private readonly WaveHeader header;
+        private readonly WavefmtSubChunk fmt;
+        private WavedataSubChunk data;
+
+        public WaveMemoryStream(WaveFormat waveFormat)
+            :this(waveFormat.Channels, waveFormat.BitsPerSample, waveFormat.SampleRate)
+        {
+
+        }
 
         public WaveMemoryStream(int channels, int bitsPerSample, int sampleRate)
         {
             header = new WaveHeader();
             fmt = new WavefmtSubChunk(channels, bitsPerSample, sampleRate);
-        }
-
-        public void SetData(float[] soundData, int numSamples)
-        {
-            byte[] buffer = soundData.ToByteArray();
-
-            SetData(buffer, numSamples);
         }
 
         public void SetData(byte[] soundData, int numSamples)
@@ -96,6 +95,7 @@ namespace SoundMachine.Wave
         }
 
         public int NumChannels { get { return fmt.NumChannels; } }
+
         public int BitsPerSample { get { return fmt.BitsPerSample; } }
     }
 }
