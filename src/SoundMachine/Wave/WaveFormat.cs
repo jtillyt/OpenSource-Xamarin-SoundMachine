@@ -5,30 +5,21 @@ using System.Text;
 namespace SoundMachine.Wave
 {
     //Copied parts from https://github.com/naudio/NAudio/blob/master/NAudio.Core/Wave/WaveFormats/WaveFormat.cs
-    /// <summary>
-    /// Represents a Wave file format
-    /// </summary>
     public class WaveFormat
     {
-        /// <summary>format type</summary>
-        protected WaveFormatEncoding waveFormatTag;
-        /// <summary>number of channels</summary>
-        protected short channels;
-        /// <summary>sample rate</summary>
-        protected int sampleRate;
-        /// <summary>for buffer estimation</summary>
-        protected int averageBytesPerSecond;
-        /// <summary>block size of data</summary>
-        protected short blockAlign;
-        /// <summary>number of bits per sample of mono data</summary>
-        protected short bitsPerSample;
-        /// <summary>number of following bytes</summary>
-        protected short extraSize;
+        protected WaveFormatEncoding _waveFormatTag;
+        protected short _channels;
+        protected int _sampleRate;
+        protected int _averageBytesPerSecond;
+        protected short _blockAlign;
+        protected short _bitsPerSample;
+        protected short _extraSize;
 
         /// <summary>
         /// Creates a new PCM 44.1Khz stereo 16 bit format
         /// </summary>
-        public WaveFormat() : this(44100, 16, 2)
+        public WaveFormat() 
+            : this(44100, 16, 2)
         {
 
         }
@@ -45,6 +36,27 @@ namespace SoundMachine.Wave
         }
 
         /// <summary>
+        /// Creates a new PCM format with the specified sample rate, bit depth and channels
+        /// </summary>
+        public WaveFormat(int rate, int bits, int channels)
+        {
+            if (channels < 1)
+            {
+                throw new ArgumentOutOfRangeException(nameof(channels), "Channels must be 1 or greater");
+            }
+
+            // minimum 16 bytes, sometimes 18 for PCM
+            _waveFormatTag = WaveFormatEncoding.Pcm;
+            _channels = (short)channels;
+            _sampleRate = rate;
+            _bitsPerSample = (short)bits;
+            _extraSize = 0;
+
+            _blockAlign = (short)(channels * (bits / 8));
+            _averageBytesPerSecond = this._sampleRate * this._blockAlign;
+        }
+
+        /// <summary>
         /// Creates a WaveFormat with custom members
         /// </summary>
         /// <param name="tag">The encoding</param>
@@ -56,14 +68,17 @@ namespace SoundMachine.Wave
         /// <returns></returns>
         public static WaveFormat CreateCustomFormat(WaveFormatEncoding tag, int sampleRate, int channels, int averageBytesPerSecond, int blockAlign, int bitsPerSample)
         {
-            WaveFormat waveFormat = new WaveFormat();
-            waveFormat.waveFormatTag = tag;
-            waveFormat.channels = (short)channels;
-            waveFormat.sampleRate = sampleRate;
-            waveFormat.averageBytesPerSecond = averageBytesPerSecond;
-            waveFormat.blockAlign = (short)blockAlign;
-            waveFormat.bitsPerSample = (short)bitsPerSample;
-            waveFormat.extraSize = 0;
+            WaveFormat waveFormat = new WaveFormat
+            {
+                _waveFormatTag = tag,
+                _channels = (short)channels,
+                _sampleRate = sampleRate,
+                _averageBytesPerSecond = averageBytesPerSecond,
+                _blockAlign = (short)blockAlign,
+                _bitsPerSample = (short)bitsPerSample,
+                _extraSize = 0
+            };
+
             return waveFormat;
         }
 
@@ -90,73 +105,55 @@ namespace SoundMachine.Wave
         }
 
         /// <summary>
-        /// Creates a new PCM format with the specified sample rate, bit depth and channels
-        /// </summary>
-        public WaveFormat(int rate, int bits, int channels)
-        {
-            if (channels < 1)
-            {
-                throw new ArgumentOutOfRangeException(nameof(channels), "Channels must be 1 or greater");
-            }
-            // minimum 16 bytes, sometimes 18 for PCM
-            waveFormatTag = WaveFormatEncoding.Pcm;
-            this.channels = (short)channels;
-            sampleRate = rate;
-            bitsPerSample = (short)bits;
-            extraSize = 0;
-
-            blockAlign = (short)(channels * (bits / 8));
-            averageBytesPerSecond = this.sampleRate * this.blockAlign;
-        }
-
-        /// <summary>
         /// Creates a new 32 bit IEEE floating point wave format
         /// </summary>
         /// <param name="sampleRate">sample rate</param>
         /// <param name="channels">number of channels</param>
         public static WaveFormat CreateIeeeFloatWaveFormat(int sampleRate, int channels)
         {
-            var wf = new WaveFormat();
-            wf.waveFormatTag = WaveFormatEncoding.IeeeFloat;
-            wf.channels = (short)channels;
-            wf.bitsPerSample = 32;
-            wf.sampleRate = sampleRate;
-            wf.blockAlign = (short)(4 * channels);
-            wf.averageBytesPerSecond = sampleRate * wf.blockAlign;
-            wf.extraSize = 0;
+            var wf = new WaveFormat
+            {
+                _waveFormatTag = WaveFormatEncoding.IeeeFloat,
+                _channels = (short)channels,
+                _bitsPerSample = 32,
+                _sampleRate = sampleRate,
+                _blockAlign = (short)(4 * channels),
+                _extraSize = 0
+            };
+            wf._averageBytesPerSecond = sampleRate * wf._blockAlign;
             return wf;
         }
 
         /// <summary>
         /// Returns the number of channels (1=mono,2=stereo etc)
         /// </summary>
-        public int Channels => channels;
+        public int Channels => _channels;
 
         /// <summary>
         /// Returns the sample rate (samples per second)
         /// </summary>
-        public int SampleRate => sampleRate;
+        public int SampleRate => _sampleRate;
 
         /// <summary>
         /// Returns the average number of bytes used per second
         /// </summary>
-        public int AverageBytesPerSecond => averageBytesPerSecond;
+        public int AverageBytesPerSecond => _averageBytesPerSecond;
 
         /// <summary>
         /// Returns the block alignment
         /// </summary>
-        public virtual int BlockAlign => blockAlign;
+        public virtual int BlockAlign => _blockAlign;
 
         /// <summary>
         /// Returns the number of bits per sample (usually 16 or 32, sometimes 24 or 8)
         /// Can be 0 for some codecs
         /// </summary>
-        public int BitsPerSample => bitsPerSample;
+        public int BitsPerSample => _bitsPerSample;
 
         /// <summary>
         /// Returns the number of extra bytes used by this waveformat. Often 0,
         /// except for compressed formats which store extra data after the WAVEFORMATEX header
         /// </summary>
-        public int ExtraSize => extraSize;
+        public int ExtraSize => _extraSize;
     }
 }

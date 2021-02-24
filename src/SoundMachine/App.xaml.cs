@@ -1,7 +1,5 @@
 ﻿using SoundMachine.Views;
-using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace SoundMachine
 {
@@ -12,18 +10,6 @@ namespace SoundMachine
             InitializeComponent();
 
             MainPage = new SoundMachinePage();
-        }
-
-        protected override void OnStart()
-        {
-        }
-
-        protected override void OnSleep()
-        {
-        }
-
-        protected override void OnResume()
-        {
         }
     }
 }

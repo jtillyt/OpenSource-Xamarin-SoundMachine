@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SoundMachine.Wave
+﻿namespace SoundMachine.Wave
 {
     /// <summary>
     /// Signal Generator type

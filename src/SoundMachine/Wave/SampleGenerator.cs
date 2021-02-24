@@ -2,18 +2,15 @@
 
 namespace SoundMachine.Wave
 {
+    //Based on https://github.com/naudio/NAudio/blob/master/NAudio.Core/Wave/SampleProviders/SignalGenerator.cs
     public class SignalGenerator
     {
-        // Wave format
         private readonly WaveFormat _waveFormat;
-
-        // Random Number for the White Noise & Pink Noise Generator
         private readonly Random _random = new Random();
 
         public SignalGenerator()
             : this(44100, 2)
         {
-
         }
 
         /// <summary>
@@ -31,25 +28,12 @@ namespace SoundMachine.Wave
             Gain = 1;
         }
 
-        /// <summary>
-        /// The waveformat of this WaveProvider (same as the source)
-        /// </summary>
         public WaveFormat WaveFormat => _waveFormat;
 
-        /// <summary>
-        /// Frequency for the Generator. (20.0 - 20000.0 Hz)
-        /// Sin, Square, Triangle, SawTooth, Sweep (Start Frequency).
-        /// </summary>
         public double Frequency { get; set; }
 
-        /// <summary>
-        /// Gain for the Generator. (0.0 to 1.0)
-        /// </summary>
         public double Gain { get; set; }
 
-        /// <summary>
-        /// Type of Generator.
-        /// </summary>
         public SignalGeneratorType Type { get; set; }
 
         /// <summary>
@@ -60,7 +44,7 @@ namespace SoundMachine.Wave
             if (Gain > 1.0)
                 Gain = 1.0;
 
-            short amplitude = (short)(short.MaxValue * (short)Gain);
+            short amplitude = (short) (short.MaxValue * (short) Gain);
 
             for (uint index = 0; index < count - 1; index++)
             {
@@ -80,7 +64,7 @@ namespace SoundMachine.Wave
                         timeIndex = index * timePeriod;
                         modResult = timeIndex % 2;
                         sampleDouble = modResult - 1;
-                        sampleValue = sampleDouble > 0 ? amplitude : (short)(amplitude * -1);
+                        sampleValue = sampleDouble > 0 ? amplitude : (short) (amplitude * -1);
                         break;
                     case SignalGeneratorType.Triangle:
                         timePeriod = Frequency / _waveFormat.SampleRate;

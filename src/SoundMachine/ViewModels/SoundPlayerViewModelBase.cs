@@ -12,6 +12,7 @@ namespace SoundMachine.ViewModels
 {
     public abstract class SoundPlayerViewModelBase : ReactiveObject
     {
+        private readonly ObservableAsPropertyHelper<bool> _isLoopedEnabled;
         private ISimpleAudioPlayer _soundPlayer;
 
         protected SoundPlayerViewModelBase(string displayName)
@@ -116,7 +117,5 @@ namespace SoundMachine.ViewModels
                 });
             }
         }
-
-        private ObservableAsPropertyHelper<bool> _isLoopedEnabled;
     }
 }

@@ -1,66 +1,70 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
+using System.Text;
 
 //from https://github.com/ghoofman/WaveLibrary
 namespace SoundMachine.Wave
 {
-    class WavefmtSubChunk
+    public class WavefmtSubChunk
     {
-        string SubChunk1ID = "fmt ";
-        int Subchunk1Size = 16; //For PCM
-        int AudioFormat = 1; //For no compression
-        public int NumChannels = 2; //1 For Mono, 2 For Stereo
-        int SampleRate = 44100;
-        int ByteRate;
-        int BlockAlign;
-        public int BitsPerSample = 16;
+        private readonly string _subChunk1ID = "fmt ";
+        private readonly int _subchunk1Size = 16; //For PCM
+        private readonly int _audioFormat = 1; //For no compression
+        private readonly int _sampleRate;
+        private readonly int _byteRate;
+        private readonly int _blockAlign;
+
+        public int NumChannels { get; } //1 For Mono, 2 For Stereo
+        public int BitsPerSample { get; }
 
         public WavefmtSubChunk(int channels, int bitsPerSamples, int sampleRate)
         {
             BitsPerSample = bitsPerSamples;
             NumChannels = channels;
-            SampleRate = sampleRate;
-            ByteRate = SampleRate * NumChannels * (BitsPerSample / 8);
-            BlockAlign = NumChannels * (BitsPerSample / 8);
+
+            _sampleRate = sampleRate;
+            _byteRate = _sampleRate * NumChannels * (BitsPerSample / 8);
+            _blockAlign = NumChannels * (BitsPerSample / 8);
         }
 
         public void Writefmt(Stream stream)
         {
             //Chunk ID
-            byte[] _subchunk1ID = Encoding.ASCII.GetBytes(SubChunk1ID);
-            stream.Write(_subchunk1ID, 0, _subchunk1ID.Length);
+            byte[] _subchunk1IDData = Encoding.ASCII.GetBytes(_subChunk1ID);
+            stream.Write(_subchunk1IDData, 0, _subchunk1IDData.Length);
 
             //Chunk Size
-            byte[] _subchunk1Size = BitConverter.GetBytes(Subchunk1Size);
-            stream.Write(_subchunk1Size, 0, _subchunk1Size.Length);
+            byte[] _subchunk1SizeData = BitConverter.GetBytes(_subchunk1Size);
+            stream.Write(_subchunk1SizeData, 0, _subchunk1SizeData.Length);
 
             //Audio Format (PCM)
-            byte[] _audioFormat = BitConverter.GetBytes(AudioFormat);
-            stream.Write(_audioFormat, 0, 2);
+            byte[] _audioFormatData = BitConverter.GetBytes(_audioFormat);
+            stream.Write(_audioFormatData, 0, 2);
 
             //Number of Channels (1 or 2)
-            byte[] _numChannels = BitConverter.GetBytes(NumChannels);
-            stream.Write(_numChannels, 0, 2);
+            byte[] _numChannelsData = BitConverter.GetBytes(NumChannels);
+            stream.Write(_numChannelsData, 0, 2);
 
             //Sample Rate
-            byte[] _sampleRate = BitConverter.GetBytes(SampleRate);
-            stream.Write(_sampleRate, 0, _sampleRate.Length);
+            byte[] _sampleRateData = BitConverter.GetBytes(_sampleRate);
+            stream.Write(_sampleRateData, 0, _sampleRateData.Length);
 
             //Byte Rate
-            byte[] _byteRate = BitConverter.GetBytes(ByteRate);
-            stream.Write(_byteRate, 0, _byteRate.Length);
+            byte[] _byteRateData = BitConverter.GetBytes(_byteRate);
+            stream.Write(_byteRateData, 0, _byteRateData.Length);
 
             //Block Align
-            byte[] _blockAlign = BitConverter.GetBytes(BlockAlign);
-            stream.Write(_blockAlign, 0, 2);
+            byte[] _blockAlignData = BitConverter.GetBytes(_blockAlign);
+            stream.Write(_blockAlignData, 0, 2);
 
             //Bits Per Sample
-            byte[] _bitsPerSample = BitConverter.GetBytes(BitsPerSample);
-            stream.Write(_bitsPerSample, 0, 2);
+            byte[] _bitsPerSampleData = BitConverter.GetBytes(BitsPerSample);
+            stream.Write(_bitsPerSampleData, 0, 2);
         }
 
-        public int Size { get { return Subchunk1Size; } }
+        public int Size
+        {
+            get { return _subchunk1Size; }
+        }
     }
 }

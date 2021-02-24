@@ -8,15 +8,14 @@ namespace SoundMachine.ViewModels
     public class WaveFormPlayerViewModel : SoundPlayerViewModelBase
     {
         private readonly SignalGeneratorType _signalType;
-        private readonly string _displayName;
+
         public WaveFormPlayerViewModel(string displayName, int initialFrequency, SignalGeneratorType signalType, int duration)
             : base(displayName)
         {
-            Duration = duration;
-
             _frequency = initialFrequency;
             _signalType = signalType;
-            _displayName = displayName;
+
+            Duration = duration;
         }
 
         private int _frequency;
@@ -28,9 +27,9 @@ namespace SoundMachine.ViewModels
 
         public override Stream GetAudioStream()
         {
-            var gen = new SignalGenerator2(44100, 2)
+            var gen = new SignalGenerator(44100, 2)
             {
-                Gain = .1,
+                Gain = 1,
                 Frequency = Frequency,
                 Type = _signalType
             };
@@ -39,14 +38,15 @@ namespace SoundMachine.ViewModels
             int sampleCount = (int)(gen.WaveFormat.SampleRate * Duration);
 
             short[] waveShortData = new short[bufferSize];
-            gen.Read(waveShortData, 0, bufferSize);
+            gen.Read(waveShortData, bufferSize);
             byte[] waveByteData = waveShortData.ToByteArray();
 
-            var musicPath = Path.Combine(Xamarin.Essentials.FileSystem.AppDataDirectory, _displayName + ".wav");
+            //        ---   Uncomment to write data to a WAV file -----
 
-            var waveFile = new WaveFile(gen.WaveFormat.Channels, gen.WaveFormat.BitsPerSample, gen.WaveFormat.SampleRate);
-            waveFile.SetData(waveByteData, sampleCount);
-            waveFile.WriteFile(musicPath);
+            //var musicPath = Path.Combine(Xamarin.Essentials.FileSystem.AppDataDirectory, DisplayName + ".wav");
+            //var waveFile = new WaveFile(gen.WaveFormat.Channels, gen.WaveFormat.BitsPerSample, gen.WaveFormat.SampleRate);
+            //waveFile.SetData(waveByteData, sampleCount);
+            //waveFile.WriteFile(musicPath);
 
             var waveStream = new WaveMemoryStream(gen.WaveFormat);
             waveStream.SetData(waveByteData, sampleCount);

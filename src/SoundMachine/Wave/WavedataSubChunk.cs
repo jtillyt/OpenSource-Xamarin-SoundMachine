@@ -1,37 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
+using System.Text;
 
 //Modified from https://github.com/ghoofman/WaveLibrary
 namespace SoundMachine.Wave
 {
-    class WavedataSubChunk
+    public class WavedataSubChunk
     {
-        string SubChunk2ID = "data";
-        int SubChunk2Size;
-        byte[] SoundData;
+        private readonly string _subChunk2ID = "data";
+        private readonly int _subChunk2Size;
+        private readonly byte[] _soundData;
 
         public WavedataSubChunk(int NumSamples, int NumChannels, int BitsPerSample, byte[] SoundData)
         {
-            SubChunk2Size = NumSamples * NumChannels * (BitsPerSample / 8);
-            this.SoundData = SoundData;
+            _subChunk2Size = NumSamples * NumChannels * (BitsPerSample / 8);
+            _soundData = SoundData;
         }
 
         public void WriteData(Stream stream)
         {
             //Chunk ID
-            byte[] _subChunk2ID = Encoding.ASCII.GetBytes(SubChunk2ID);
-            stream.Write(_subChunk2ID, 0, _subChunk2ID.Length);
+            byte[] _subChunk2IDData = Encoding.ASCII.GetBytes(_subChunk2ID);
+            stream.Write(_subChunk2IDData, 0, _subChunk2IDData.Length);
 
             //Chunk Size
-            byte[] _subChunk2Size = BitConverter.GetBytes(SubChunk2Size);
-            stream.Write(_subChunk2Size, 0, _subChunk2Size.Length);
+            byte[] _subChunk2SizeData = BitConverter.GetBytes(this._subChunk2Size);
+            stream.Write(_subChunk2SizeData, 0, _subChunk2SizeData.Length);
 
             //Wave Sound Data
-            stream.Write(SoundData, 0, SoundData.Length);
+            stream.Write(_soundData, 0, _soundData.Length);
         }
 
-        public int Size { get { return SubChunk2Size; } }
+        public int Size
+        {
+            get { return _subChunk2Size; }
+        }
     }
 }
