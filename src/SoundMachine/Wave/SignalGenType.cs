@@ -6,17 +6,9 @@
     public enum SignalGeneratorType
     {
         /// <summary>
-        /// Pink noise
-        /// </summary>
-        Pink,
-        /// <summary>
         /// White noise
         /// </summary>
         White,
-        /// <summary>
-        /// Sweep
-        /// </summary>
-        Sweep,
         /// <summary>
         /// Sine wave
         /// </summary>

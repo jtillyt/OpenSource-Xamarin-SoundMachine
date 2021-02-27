@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vms="clr-namespace:SoundMachine.ViewModels"
-             BackgroundColor="White"
              x:DataType="vms:SoundMachineViewModel"
+             BackgroundColor="White"
              x:Class="SoundMachine.Views.SoundMachinePage">
     <CollectionView ItemsSource="{Binding SoundPlayers}"
                     ItemSizingStrategy="MeasureAllItems"
@@ -11,9 +11,8 @@
         <CollectionView.ItemTemplate>
             <DataTemplate x:DataType="vms:SoundPlayerViewModelBase">
                 <StackLayout Padding="20">
-                    <Frame BackgroundColor="White"
-                           BorderColor="Black"
-                           CornerRadius="5"
+                    <Frame CornerRadius="5"
+                           BorderColor="DarkGray"
                            Margin="5">
                         <Grid RowDefinitions="50,50">
 
@@ -24,15 +23,13 @@
                                        HorizontalOptions="Start"
                                        HeightRequest="50"
                                        VerticalOptions="Center"
-                                       VerticalTextAlignment="Center"
-                                       TextColor="Black" />
+                                       VerticalTextAlignment="Center"/>
 
                                 <Label Text="{Binding Duration}"
                                        HorizontalOptions="EndAndExpand"
                                        HeightRequest="50"
                                        VerticalOptions="Center"
-                                       VerticalTextAlignment="Center"
-                                       TextColor="Black" />
+                                       VerticalTextAlignment="Center"/>
                             </StackLayout>
 
                             <StackLayout Orientation="Horizontal"
@@ -40,24 +37,20 @@
 
                                 <Button Text="Play"
                                         Command="{Binding PlayCommand}"
-                                        BackgroundColor="WhiteSmoke"
                                         HeightRequest="30"
-                                        TextColor="Black"
-                                        WidthRequest="70"
-                                        BorderColor="Black" />
+                                        WidthRequest="70" />
 
                                 <Button Text="Stop"
                                         Command="{Binding StopCommand}"
-                                        BackgroundColor="WhiteSmoke"
                                         HeightRequest="30"
-                                        TextColor="Black"
-                                        WidthRequest="70"
-                                        BorderColor="Black" />
+                                        WidthRequest="70" />
 
                                 <StackLayout Orientation="Horizontal"
                                              HorizontalOptions="EndAndExpand">
-                                    <Label Text="Loop" VerticalTextAlignment="Center" VerticalOptions="Center" TextColor="Black" />
-                                    
+                                    <Label Text="Loop"
+                                           VerticalTextAlignment="Center"
+                                           VerticalOptions="Center"/>
+
                                     <CheckBox IsChecked="{Binding IsLooped}"
                                               VerticalOptions="Center"
                                               IsEnabled="{Binding IsLoopedEnabled}" />

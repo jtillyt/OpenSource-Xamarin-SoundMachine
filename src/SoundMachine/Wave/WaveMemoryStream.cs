@@ -39,6 +39,8 @@ namespace SoundMachine.Wave
             _fmt.Writefmt(memStream);
             _data.WriteData(memStream);
 
+            memStream.Seek(0, SeekOrigin.Begin);
+
             return memStream;
         }
 

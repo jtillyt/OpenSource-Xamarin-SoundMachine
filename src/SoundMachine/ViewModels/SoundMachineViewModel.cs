@@ -9,6 +9,9 @@ namespace SoundMachine.ViewModels
         {
             _soundPlayers = new ObservableCollection<SoundPlayerViewModelBase>()
             {
+                new FilePlayerViewModel("SoundMachine.Audio.Cannon.wav", "Cannon Wave File"),
+                new FilePlayerViewModel("SoundMachine.Audio.TriangleWave.wav", "Triangle Wave File"),
+                new FilePlayerViewModel("SoundMachine.Audio.SawWave.wav", "Saw Wave File"),
                 new FilePlayerViewModel("SoundMachine.Audio.PositiveShortDigital.flac", "Positive Sound"),
                 new FilePlayerViewModel("SoundMachine.Audio.NegativeShortDigital.flac", "Negative Sound"),
                 new FilePlayerViewModel("SoundMachine.Audio.BeachBird.flac", "Beach Birds"),
@@ -17,7 +20,6 @@ namespace SoundMachine.ViewModels
                 new WaveFormPlayerViewModel("Triangle  Wave",200, Wave.SignalGeneratorType.Triangle, 5),
                 new WaveFormPlayerViewModel("Saw Wave",200, Wave.SignalGeneratorType.SawTooth, 5),
                 new WaveFormPlayerViewModel("Square Wave",200, Wave.SignalGeneratorType.Square, 5),
-                new WaveFormPlayerViewModel("Pink Noise",200, Wave.SignalGeneratorType.Pink, 5),
                 new WaveFormPlayerViewModel("White Noise",200, Wave.SignalGeneratorType.White, 5),
             };
         }

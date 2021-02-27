@@ -12,15 +12,21 @@
 
   <ItemGroup>
     <None Remove="Audio\BeachBird.flac" />
+    <None Remove="Audio\Cannon.wav" />
     <None Remove="Audio\NegativeShortDigital.flac" />
     <None Remove="Audio\PositiveShortDigital.flac" />
+    <None Remove="Audio\SawWave.wav" />
+    <None Remove="Audio\TriangleWave.wav" />
     <None Remove="Audio\UrbanBird.flac" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Audio\BeachBird.flac" />
+    <EmbeddedResource Include="Audio\Cannon.wav" />
     <EmbeddedResource Include="Audio\NegativeShortDigital.flac" />
     <EmbeddedResource Include="Audio\PositiveShortDigital.flac" />
+    <EmbeddedResource Include="Audio\SawWave.wav" />
+    <EmbeddedResource Include="Audio\TriangleWave.wav" />
     <EmbeddedResource Include="Audio\UrbanBird.flac" />
   </ItemGroup>
 
@@ -39,6 +45,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Themes\LightTheme.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\SoundMachinePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

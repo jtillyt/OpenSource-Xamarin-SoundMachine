@@ -9,7 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundMachine.Android", "Sou
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundMachine.iOS", "SoundMachine.iOS\SoundMachine.iOS.csproj", "{B482D642-2C8C-42C3-B99A-3B5B3040B875}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundMachine", "SoundMachine\SoundMachine.csproj", "{CACB74A8-06A5-4E96-B926-5D8548C0C624}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SoundMachine", "SoundMachine\SoundMachine.csproj", "{CACB74A8-06A5-4E96-B926-5D8548C0C624}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chirp", "..\..\Chirp\Chirp\Chirp.csproj", "{B1611305-F864-452B-991E-C2A3CAF60CF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -171,6 +173,30 @@ Global
 		{CACB74A8-06A5-4E96-B926-5D8548C0C624}.Release|x86.ActiveCfg = Release|Any CPU
 		{CACB74A8-06A5-4E96-B926-5D8548C0C624}.Release|x86.Build.0 = Release|Any CPU
 		{CACB74A8-06A5-4E96-B926-5D8548C0C624}.Release|x86.Deploy.0 = Release|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Debug|ARM.Build.0 = Debug|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Debug|x64.Build.0 = Debug|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Debug|x86.Build.0 = Debug|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Release|ARM.ActiveCfg = Release|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Release|ARM.Build.0 = Release|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Release|iPhone.Build.0 = Release|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Release|x64.ActiveCfg = Release|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Release|x64.Build.0 = Release|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Release|x86.ActiveCfg = Release|Any CPU
+		{B1611305-F864-452B-991E-C2A3CAF60CF1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
