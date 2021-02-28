@@ -30,9 +30,9 @@
                                   SegmentSelectedCommand="{Binding SegmentSeletedCommand}"
                                   Margin="30,0">
                 <seg:SegmentedControl.Children>
+                    <seg:SegmentedControlOption Text="Generated" />
                     <seg:SegmentedControlOption Text="Wave Files" />
                     <seg:SegmentedControlOption Text="Flac Files" />
-                    <seg:SegmentedControlOption Text="Generated " />
                 </seg:SegmentedControl.Children>
             </seg:SegmentedControl>
         </StackLayout>

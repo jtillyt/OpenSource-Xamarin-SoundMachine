@@ -63,13 +63,13 @@ namespace SoundMachine.ViewModels
             switch (index)
             {
                 case 0:
-                    group = WaveFileGroup;
+                    group = GenWaveGroup;
                     break;
                 case 1:
-                    group = FlacFileGroup;
+                    group = WaveFileGroup;
                     break;
                 case 2:
-                    group = GenWaveGroup;
+                    group = FlacFileGroup;
                     break;
                 default:
                     break;

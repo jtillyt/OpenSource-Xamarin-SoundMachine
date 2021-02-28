@@ -2,13 +2,14 @@
 <StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vms="clr-namespace:SoundMachine.ViewModels"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              x:Class="SoundMachine.Views.SoundPlayer"
              x:DataType="vms:SoundPlayerViewModelBase"
              Padding="20">
     <Frame CornerRadius="5"
            BorderColor="DarkGray"
            Margin="5">
-        <Grid RowDefinitions="50,50">
+        <Grid RowDefinitions="50,Auto,50">
 
             <StackLayout Orientation="Horizontal"
                          Grid.Row="0">
@@ -19,43 +20,62 @@
                        VerticalOptions="Center"
                        VerticalTextAlignment="Center" />
 
-                <Label HorizontalOptions="Start"
+                <Label HorizontalOptions="EndAndExpand"
                        HeightRequest="50"
                        VerticalOptions="Center"
                        VerticalTextAlignment="Center">
                     <Label.FormattedText>
                         <FormattedString>
-                            <Span Text=" |  Time: " />
+                            <Span Text="Time: " />
                             <Span Text="{Binding Duration}" />
-                            <Span Text=" seconds" />
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
             </StackLayout>
 
+            <StackLayout x:Name="WaveFormLayout"
+                         Grid.Row="1"
+                         IsVisible="{Binding IsWave}">
+                <skia:SKCanvasView x:Name="WaveformCanvas"
+                                   HeightRequest="80"
+                                   HorizontalOptions="FillAndExpand"
+                                   VerticalOptions="FillAndExpand"
+                                   PaintSurface="PaintWaveFormCanvas" />
+            </StackLayout>
+
             <StackLayout Orientation="Horizontal"
-                         Grid.Row="1">
+                         Grid.Row="2">
 
                 <Button Text="Play"
                         Command="{Binding PlayCommand}"
+                        HorizontalOptions="Start"
                         HeightRequest="30"
                         WidthRequest="70" />
 
                 <Button Text="Stop"
+                        HorizontalOptions="Start"
                         Command="{Binding StopCommand}"
                         HeightRequest="30"
                         WidthRequest="70" />
 
                 <StackLayout Orientation="Horizontal"
+                             Padding="0"
+                             Margin="0"
                              HorizontalOptions="EndAndExpand">
-                    <Label Text="Loop"
+
+                    <Label Text="Loop:"
+                           Margin="0"
+                           HorizontalOptions="StartAndExpand"
                            VerticalTextAlignment="Center"
                            VerticalOptions="Center" />
 
                     <CheckBox IsChecked="{Binding IsLooped}"
+                              HorizontalOptions="End"
+                              Margin="0"
                               VerticalOptions="Center"
                               Color="#ff666666"
                               IsEnabled="{Binding IsLoopedEnabled}" />
+
                 </StackLayout>
             </StackLayout>
         </Grid>

@@ -12,6 +12,8 @@ namespace SoundMachine.ViewModels
 {
     public abstract class SoundPlayerViewModelBase : ViewModelBase
     {
+        public event EventHandler PlayStarted;
+
         private readonly ObservableAsPropertyHelper<bool> _isLoopedEnabled;
         private ISimpleAudioPlayer _soundPlayer;
 
@@ -20,8 +22,7 @@ namespace SoundMachine.ViewModels
             DisplayName = displayName;
             GroupName = groupName;
 
-            IsWave = groupName == SoundMachineViewModel.WaveFileGroup ||
-                     groupName == SoundMachineViewModel.GenWaveGroup;
+            IsWave = groupName == SoundMachineViewModel.GenWaveGroup;
 
             var isPlayingChanged = this.WhenAnyValue(x => x.IsPlaying);
 
@@ -92,7 +93,7 @@ namespace SoundMachine.ViewModels
             set => this.RaiseAndSetIfChanged(ref _groupName, value);
         }
 
-        public bool IsWave {get; }
+        public bool IsWave { get; }
 
         public bool IsLoopedEnabled => _isLoopedEnabled.Value;
 
@@ -106,9 +107,11 @@ namespace SoundMachine.ViewModels
 
                 var stream = GetAudioStream();
                 _soundPlayer.Load(stream);
+
+                PlayStarted?.Invoke(this, EventArgs.Empty);
             }
         }
-       
+
 
         private void ExecuteStop()
         {

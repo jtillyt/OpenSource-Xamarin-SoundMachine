@@ -4,19 +4,19 @@ namespace SoundMachine.ViewModels
 {
     public class FilePlayerViewModel : SoundPlayerViewModelBase
     {
-        private readonly string _filePath;
-
         public FilePlayerViewModel(string filePath, string displayName, string groupName)
-            :base(displayName, groupName)
+            : base(displayName, groupName)
         {
-            _filePath = filePath;
+            FilePath = filePath;
 
             EnsurePlayerLoaded();
         }
 
+        public string FilePath { get; }
+
         public override Stream GetAudioStream()
         {
-            var stream = GetType().Assembly.GetManifestResourceStream(_filePath);
+            var stream = GetType().Assembly.GetManifestResourceStream(FilePath);
 
             return stream;
         }

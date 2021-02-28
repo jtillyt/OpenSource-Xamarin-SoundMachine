@@ -1,6 +1,8 @@
 ﻿using JaybirdLabs.Chirp;
 using ReactiveUI;
+using SoundMachine.ExtensionMethods;
 using System.IO;
+using System.Linq;
 
 namespace SoundMachine.ViewModels
 {
@@ -26,9 +28,22 @@ namespace SoundMachine.ViewModels
             set => this.RaiseAndSetIfChanged(ref _frequency, value);
         }
 
+        public short[] Amplitudes { get; private set; }
+
+        public float[] GetAmplitudes(int count)
+        {
+            var amplitudes = Amplitudes.Take(count).ToArray();
+
+            return amplitudes.ToNormalizedFloat();
+        }
+
         public override Stream GetAudioStream()
         {
-            return _streamGenerator.GenerateStream(_signalType, 400, 5);
+            var result = _streamGenerator.GenerateStream(_signalType, 400, 5);
+
+            Amplitudes = result.Amplitudes;
+
+            return result.WaveStream;
         }
     }
 }
