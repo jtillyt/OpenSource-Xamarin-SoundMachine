@@ -1,4 +1,5 @@
-﻿using SoundMachine.ViewModels;
+﻿using System.Linq;
+using SoundMachine.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

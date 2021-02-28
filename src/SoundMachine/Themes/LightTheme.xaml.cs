@@ -1,4 +1,6 @@
-﻿namespace SoundMachine.Themes
+﻿using System.Linq;
+
+namespace SoundMachine.Themes
 {
     public partial class LightTheme
     {

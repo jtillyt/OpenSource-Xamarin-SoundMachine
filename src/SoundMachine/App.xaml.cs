@@ -1,4 +1,5 @@
-﻿using SoundMachine.Views;
+﻿using System.Linq;
+using SoundMachine.Views;
 using Xamarin.Forms;
 
 namespace SoundMachine

@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace SoundMachine.ExtensionMethods
 {
@@ -15,9 +14,9 @@ namespace SoundMachine.ExtensionMethods
 
             var result = new float[data.Length];
 
-            for(int i = 0; i < data.Length;i++)
+            for (var i = 0; i < data.Length; i++)
             {
-                result[i] = (float)data[i] / short.MaxValue;
+                result[i] = (float) data[i] / short.MaxValue;
             }
 
             return result;

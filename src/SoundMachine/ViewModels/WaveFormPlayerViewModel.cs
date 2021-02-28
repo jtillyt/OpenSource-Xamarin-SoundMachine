@@ -1,8 +1,8 @@
-﻿using JaybirdLabs.Chirp;
+﻿using System.IO;
+using System.Linq;
+using JaybirdLabs.Chirp;
 using ReactiveUI;
 using SoundMachine.ExtensionMethods;
-using System.IO;
-using System.Linq;
 
 namespace SoundMachine.ViewModels
 {
@@ -11,7 +11,10 @@ namespace SoundMachine.ViewModels
         private readonly SignalGeneratorType _signalType;
         private readonly StreamGenerator _streamGenerator;
 
-        public WaveFormPlayerViewModel(string displayName, string groupName, int initialFrequency, SignalGeneratorType signalType, int duration)
+        private int _frequency;
+
+        public WaveFormPlayerViewModel(string displayName, string groupName, int initialFrequency,
+            SignalGeneratorType signalType, int duration)
             : base(displayName, groupName)
         {
             _frequency = initialFrequency;
@@ -21,7 +24,6 @@ namespace SoundMachine.ViewModels
             Duration = duration;
         }
 
-        private int _frequency;
         public int Frequency
         {
             get => _frequency;

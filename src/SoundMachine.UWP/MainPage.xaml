@@ -6,7 +6,5 @@
     xmlns:local="using:SoundMachine.UWP"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    </Grid>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" />
 </forms:WindowsPage>

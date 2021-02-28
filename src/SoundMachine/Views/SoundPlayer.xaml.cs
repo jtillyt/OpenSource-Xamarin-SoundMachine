@@ -1,8 +1,9 @@
-﻿using SkiaSharp;
+﻿using System;
+using System.Linq;
+using SkiaSharp;
+using SkiaSharp.Views.Forms;
 using SkiaSharp.Waveform;
 using SoundMachine.ViewModels;
-using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms.Xaml;
 
@@ -11,13 +12,15 @@ namespace SoundMachine.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SoundPlayer
     {
+        private bool _hasLoaded;
         private Waveform _waveForm;
-        private bool _hasLoaded = false;
 
         public SoundPlayer()
         {
             InitializeComponent();
         }
+
+        public SoundPlayerViewModelBase ViewModel { get; private set; }
 
         protected override void OnBindingContextChanged()
         {
@@ -31,11 +34,11 @@ namespace SoundMachine.Views
             }
         }
 
-        private void ViewModel_PlayStarted(object sender, System.EventArgs e)
+        private void ViewModel_PlayStarted(object sender, EventArgs e)
         {
             if (_waveForm == null && ViewModel is WaveFormPlayerViewModel waveFormVm)
             {
-                int sampleCount = DeviceInfo.Idiom == DeviceIdiom.Phone ? 200 : 500;
+                var sampleCount = DeviceInfo.Idiom == DeviceIdiom.Phone ? 200 : 500;
 
                 var amplitudes = waveFormVm.GetAmplitudes(sampleCount).ToArray();
 
@@ -49,9 +52,7 @@ namespace SoundMachine.Views
             }
         }
 
-        public SoundPlayerViewModelBase ViewModel { get; private set; }
-
-        private void PaintWaveFormCanvas(object sender, SkiaSharp.Views.Forms.SKPaintSurfaceEventArgs e)
+        private void PaintWaveFormCanvas(object sender, SKPaintSurfaceEventArgs e)
         {
             if (_waveForm != null && !_hasLoaded)
             {

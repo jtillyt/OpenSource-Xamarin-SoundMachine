@@ -1,5 +1,6 @@
-﻿using ReactiveUI;
+﻿using System.Linq;
 using System.Reactive.Disposables;
+using ReactiveUI;
 
 namespace SoundMachine.ViewModels
 {
