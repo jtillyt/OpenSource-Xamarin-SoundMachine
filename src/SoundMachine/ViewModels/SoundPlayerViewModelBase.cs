@@ -10,14 +10,15 @@ using Xamarin.Forms;
 
 namespace SoundMachine.ViewModels
 {
-    public abstract class SoundPlayerViewModelBase : ReactiveObject
+    public abstract class SoundPlayerViewModelBase : ViewModelBase
     {
         private readonly ObservableAsPropertyHelper<bool> _isLoopedEnabled;
         private ISimpleAudioPlayer _soundPlayer;
 
-        protected SoundPlayerViewModelBase(string displayName)
+        protected SoundPlayerViewModelBase(string displayName, string groupName)
         {
             DisplayName = displayName;
+            GroupName = groupName;
 
             var isPlayingChanged = this.WhenAnyValue(x => x.IsPlaying);
 
@@ -80,21 +81,36 @@ namespace SoundMachine.ViewModels
             set => this.RaiseAndSetIfChanged(ref _isLooped, value);
         }
 
+        private string _groupName = "";
+
+        public string GroupName
+        {
+            get { return _groupName; }
+            set => this.RaiseAndSetIfChanged(ref _groupName, value);
+        }
+
+        private bool _isShown;
+        public bool IsShown
+        {
+            get => _isShown;
+            set => this.RaiseAndSetIfChanged(ref _isShown, value);
+        }
+
         public bool IsLoopedEnabled => _isLoopedEnabled.Value;
 
         public abstract Stream GetAudioStream();
 
         protected void EnsurePlayerLoaded()
         {
-            //if (_soundPlayer == null)
-            //{
+            if (_soundPlayer == null)
+            {
                 _soundPlayer = CrossSimpleAudioPlayer.CreateSimpleAudioPlayer();
 
                 var stream = GetAudioStream();
                 _soundPlayer.Load(stream);
-            //}
+            }
         }
-        protected CompositeDisposable Disposables { get; } = new CompositeDisposable();
+       
 
         private void ExecuteStop()
         {

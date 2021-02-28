@@ -2,65 +2,104 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vms="clr-namespace:SoundMachine.ViewModels"
+             xmlns:seg="clr-namespace:Plugin.Segmented.Control;assembly=Plugin.Segmented"
+             x:Class="SoundMachine.Views.SoundMachinePage"
              x:DataType="vms:SoundMachineViewModel"
-             BackgroundColor="White"
-             x:Class="SoundMachine.Views.SoundMachinePage">
-    <CollectionView ItemsSource="{Binding SoundPlayers}"
-                    ItemSizingStrategy="MeasureAllItems"
-                    Margin="10">
-        <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="vms:SoundPlayerViewModelBase">
-                <StackLayout Padding="20">
-                    <Frame CornerRadius="5"
-                           BorderColor="DarkGray"
-                           Margin="5">
-                        <Grid RowDefinitions="50,50">
-
-                            <StackLayout Orientation="Horizontal"
-                                         Grid.Row="0">
-
-                                <Label Text="{Binding DisplayName}"
-                                       HorizontalOptions="Start"
-                                       HeightRequest="50"
-                                       VerticalOptions="Center"
-                                       VerticalTextAlignment="Center"/>
-
-                                <Label Text="{Binding Duration}"
-                                       HorizontalOptions="EndAndExpand"
-                                       HeightRequest="50"
-                                       VerticalOptions="Center"
-                                       VerticalTextAlignment="Center"/>
-                            </StackLayout>
-
-                            <StackLayout Orientation="Horizontal"
-                                         Grid.Row="1">
-
-                                <Button Text="Play"
-                                        Command="{Binding PlayCommand}"
-                                        HeightRequest="30"
-                                        WidthRequest="70" />
-
-                                <Button Text="Stop"
-                                        Command="{Binding StopCommand}"
-                                        HeightRequest="30"
-                                        WidthRequest="70" />
+             BackgroundColor="White">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <StackLayout Grid.Row="0">
+            <Label Text="Sound Board"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalTextAlignment="Center"
+                   VerticalOptions="Center" />
+            <seg:SegmentedControl x:Name="SegmentControl"
+                                  BackgroundColor="White"
+                                  BorderColor="Gray"
+                                  SelectedTextColor="White"
+                                  TintColor="Gray"
+                                  TextColor="Gray"
+                                  SelectedSegment="{Binding SelectedSegment, Mode=TwoWay}"
+                                  SegmentSelectedCommand="{Binding SegmentSeletedCommand}"
+                                  Margin="30,0">
+                <seg:SegmentedControl.Children>
+                    <seg:SegmentedControlOption Text="Wave Files" />
+                    <seg:SegmentedControlOption Text="Flac Files" />
+                    <seg:SegmentedControlOption Text="Generated " />
+                </seg:SegmentedControl.Children>
+            </seg:SegmentedControl>
+        </StackLayout>
+        <CollectionView Grid.Row="1"
+                        Margin="0"
+                        ItemsUpdatingScrollMode="KeepScrollOffset"
+                        ItemSizingStrategy="MeasureAllItems"
+                        ItemsSource="{Binding SoundPlayers}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vms:SoundPlayerViewModelBase">
+                    <StackLayout Padding="20">
+                        <Frame CornerRadius="5"
+                               BorderColor="DarkGray"
+                               Margin="5">
+                            <Grid RowDefinitions="50,50">
 
                                 <StackLayout Orientation="Horizontal"
-                                             HorizontalOptions="EndAndExpand">
-                                    <Label Text="Loop"
-                                           VerticalTextAlignment="Center"
-                                           VerticalOptions="Center"/>
+                                             Grid.Row="0">
 
-                                    <CheckBox IsChecked="{Binding IsLooped}"
-                                              VerticalOptions="Center"
-                                              IsEnabled="{Binding IsLoopedEnabled}" />
+                                    <Label Text="{Binding DisplayName}"
+                                           HorizontalOptions="Start"
+                                           HeightRequest="50"
+                                           VerticalOptions="Center"
+                                           VerticalTextAlignment="Center" />
+
+                                    <Label HorizontalOptions="Start"
+                                           HeightRequest="50"
+                                           VerticalOptions="Center"
+                                           VerticalTextAlignment="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                            <Span Text=" |  Time: " />
+                                            <Span Text="{Binding Duration}" />
+                                            <Span Text=" seconds" />
+                                            </FormattedString>
+                                        </Label.FormattedText> 
+                                    </Label>
                                 </StackLayout>
-                            </StackLayout>
-                        </Grid>
 
-                    </Frame>
-                </StackLayout>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+                                <StackLayout Orientation="Horizontal"
+                                             Grid.Row="1">
+
+                                    <Button Text="Play"
+                                            Command="{Binding PlayCommand}"
+                                            HeightRequest="30"
+                                            WidthRequest="70" />
+
+                                    <Button Text="Stop"
+                                            Command="{Binding StopCommand}"
+                                            HeightRequest="30"
+                                            WidthRequest="70" />
+
+                                    <StackLayout Orientation="Horizontal"
+                                                 HorizontalOptions="EndAndExpand">
+                                        <Label Text="Loop"
+                                               VerticalTextAlignment="Center"
+                                               VerticalOptions="Center" />
+
+                                        <CheckBox IsChecked="{Binding IsLooped}"
+                                                  VerticalOptions="Center"
+                                                  Color="#ff666666"
+                                                  IsEnabled="{Binding IsLoopedEnabled}" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </Grid>
+
+                        </Frame>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>

@@ -6,8 +6,8 @@ namespace SoundMachine.ViewModels
     {
         private readonly string _filePath;
 
-        public FilePlayerViewModel(string filePath, string displayName)
-            :base(displayName)
+        public FilePlayerViewModel(string filePath, string displayName, string groupName)
+            :base(displayName, groupName)
         {
             _filePath = filePath;
 

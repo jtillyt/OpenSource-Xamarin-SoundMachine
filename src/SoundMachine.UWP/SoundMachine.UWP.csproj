@@ -143,6 +143,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Plugin.SegmentedControl.Netstandard">
+      <Version>5.4.5</Version>
+    </PackageReference>
     <PackageReference Include="ReactiveUI">
       <Version>12.1.5</Version>
     </PackageReference>
