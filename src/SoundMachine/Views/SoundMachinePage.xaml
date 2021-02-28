@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vms="clr-namespace:SoundMachine.ViewModels"
              xmlns:seg="clr-namespace:Plugin.Segmented.Control;assembly=Plugin.Segmented"
+             xmlns:views="clr-namespace:SoundMachine.Views"
              x:Class="SoundMachine.Views.SoundMachinePage"
              x:DataType="vms:SoundMachineViewModel"
              BackgroundColor="White">
@@ -13,10 +14,12 @@
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <StackLayout Grid.Row="0">
+
             <Label Text="Sound Board"
                    HorizontalOptions="CenterAndExpand"
                    VerticalTextAlignment="Center"
                    VerticalOptions="Center" />
+            
             <seg:SegmentedControl x:Name="SegmentControl"
                                   BackgroundColor="White"
                                   BorderColor="Gray"
@@ -33,6 +36,7 @@
                 </seg:SegmentedControl.Children>
             </seg:SegmentedControl>
         </StackLayout>
+
         <CollectionView Grid.Row="1"
                         Margin="0"
                         ItemsUpdatingScrollMode="KeepScrollOffset"
@@ -40,64 +44,7 @@
                         ItemsSource="{Binding SoundPlayers}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="vms:SoundPlayerViewModelBase">
-                    <StackLayout Padding="20">
-                        <Frame CornerRadius="5"
-                               BorderColor="DarkGray"
-                               Margin="5">
-                            <Grid RowDefinitions="50,50">
-
-                                <StackLayout Orientation="Horizontal"
-                                             Grid.Row="0">
-
-                                    <Label Text="{Binding DisplayName}"
-                                           HorizontalOptions="Start"
-                                           HeightRequest="50"
-                                           VerticalOptions="Center"
-                                           VerticalTextAlignment="Center" />
-
-                                    <Label HorizontalOptions="Start"
-                                           HeightRequest="50"
-                                           VerticalOptions="Center"
-                                           VerticalTextAlignment="Center">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                            <Span Text=" |  Time: " />
-                                            <Span Text="{Binding Duration}" />
-                                            <Span Text=" seconds" />
-                                            </FormattedString>
-                                        </Label.FormattedText> 
-                                    </Label>
-                                </StackLayout>
-
-                                <StackLayout Orientation="Horizontal"
-                                             Grid.Row="1">
-
-                                    <Button Text="Play"
-                                            Command="{Binding PlayCommand}"
-                                            HeightRequest="30"
-                                            WidthRequest="70" />
-
-                                    <Button Text="Stop"
-                                            Command="{Binding StopCommand}"
-                                            HeightRequest="30"
-                                            WidthRequest="70" />
-
-                                    <StackLayout Orientation="Horizontal"
-                                                 HorizontalOptions="EndAndExpand">
-                                        <Label Text="Loop"
-                                               VerticalTextAlignment="Center"
-                                               VerticalOptions="Center" />
-
-                                        <CheckBox IsChecked="{Binding IsLooped}"
-                                                  VerticalOptions="Center"
-                                                  Color="#ff666666"
-                                                  IsEnabled="{Binding IsLoopedEnabled}" />
-                                    </StackLayout>
-                                </StackLayout>
-                            </Grid>
-
-                        </Frame>
-                    </StackLayout>
+                    <views:SoundPlayer />
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

@@ -20,6 +20,9 @@ namespace SoundMachine.ViewModels
             DisplayName = displayName;
             GroupName = groupName;
 
+            IsWave = groupName == SoundMachineViewModel.WaveFileGroup ||
+                     groupName == SoundMachineViewModel.GenWaveGroup;
+
             var isPlayingChanged = this.WhenAnyValue(x => x.IsPlaying);
 
             var canPlay = isPlayingChanged.Select(isPlaying => !isPlaying);
@@ -89,12 +92,7 @@ namespace SoundMachine.ViewModels
             set => this.RaiseAndSetIfChanged(ref _groupName, value);
         }
 
-        private bool _isShown;
-        public bool IsShown
-        {
-            get => _isShown;
-            set => this.RaiseAndSetIfChanged(ref _isShown, value);
-        }
+        public bool IsWave {get; }
 
         public bool IsLoopedEnabled => _isLoopedEnabled.Value;
 

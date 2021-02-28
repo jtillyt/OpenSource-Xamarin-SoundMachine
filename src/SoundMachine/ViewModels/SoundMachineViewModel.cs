@@ -12,9 +12,9 @@ namespace SoundMachine.ViewModels
 {
     public class SoundMachineViewModel : ViewModelBase
     {
-        private const string WaveFileGroup = nameof(WaveFileGroup);
-        private const string FlacFileGroup = nameof(FlacFileGroup);
-        private const string GenWaveGroup = nameof(GenWaveGroup);
+        public const string WaveFileGroup = nameof(WaveFileGroup);
+        public const string FlacFileGroup = nameof(FlacFileGroup);
+        public const string GenWaveGroup = nameof(GenWaveGroup);
 
         public SoundMachineViewModel()
         {

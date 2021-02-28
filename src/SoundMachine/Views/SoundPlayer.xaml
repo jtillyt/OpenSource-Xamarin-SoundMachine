@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vms="clr-namespace:SoundMachine.ViewModels"
+             x:Class="SoundMachine.Views.SoundPlayer"
+             x:DataType="vms:SoundPlayerViewModelBase"
+             Padding="20">
+    <Frame CornerRadius="5"
+           BorderColor="DarkGray"
+           Margin="5">
+        <Grid RowDefinitions="50,50">
+
+            <StackLayout Orientation="Horizontal"
+                         Grid.Row="0">
+
+                <Label Text="{Binding DisplayName}"
+                       HorizontalOptions="Start"
+                       HeightRequest="50"
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center" />
+
+                <Label HorizontalOptions="Start"
+                       HeightRequest="50"
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text=" |  Time: " />
+                            <Span Text="{Binding Duration}" />
+                            <Span Text=" seconds" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal"
+                         Grid.Row="1">
+
+                <Button Text="Play"
+                        Command="{Binding PlayCommand}"
+                        HeightRequest="30"
+                        WidthRequest="70" />
+
+                <Button Text="Stop"
+                        Command="{Binding StopCommand}"
+                        HeightRequest="30"
+                        WidthRequest="70" />
+
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="EndAndExpand">
+                    <Label Text="Loop"
+                           VerticalTextAlignment="Center"
+                           VerticalOptions="Center" />
+
+                    <CheckBox IsChecked="{Binding IsLooped}"
+                              VerticalOptions="Center"
+                              Color="#ff666666"
+                              IsEnabled="{Binding IsLoopedEnabled}" />
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+
+    </Frame>
+</StackLayout>
